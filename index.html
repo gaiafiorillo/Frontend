@@ -7,6 +7,10 @@
 
     <link rel="stylesheet" href="styles.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="lesson.js"></script>
+
+
+
 </head>
 <body>
   <div id="mydiv">
@@ -17,6 +21,7 @@
     <p>Available slots: {{ lessonProduct.availability }}</p>
    <button v-on:click="addToCart" :disabled="!canAddToCart">{{buttonText}}</button>
     <p>Items in cart: {{ cartTotal }}</p>
+    <button onclick="window.location.href='cart.html'">Check out </button>
     <img v-bind:src="lessonProduct.photo.image" v-bind:alt="lessonProduct.photo.alt" width="300">
   </div>
   
@@ -70,5 +75,9 @@
      }
     });
     
+
+
     myApp.mount('#mydiv');
+
+  
   </script>
