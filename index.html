@@ -1,11 +1,74 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>My Web Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
-    <h1>Welcome to My Web Page</h1>
-    <p>This is a simple HTML page.</p>
-</body>
+  <div id="mydiv">
+   <h1>After school club</h1> 
+    <p>Subject: {{ lessonProduct.Subject }}</p>
+    <p>Location: {{ lessonProduct.Location }}</p>
+    <p>Price: {{ lessonProduct.Price }}</p>
+    <p>Available slots: {{ lessonProduct.availability }}</p>
+   <button v-on:click="addToCart" :disabled="!canAddToCart">{{buttonText}}</button>
+    <p>Items in cart: {{ cartTotal }}</p>
+    <img v-bind:src="lessonProduct.photo.image" v-bind:alt="lessonProduct.photo.alt" width="300">
+  </div>
+  
+  <script type="module">
+    const { createApp } = Vue;
+    const myApp = createApp({
+      data() {
+        return {
+          lessonProduct: {
+            lessonid: 1,
+            availability: 20,
+            Subject: 'Maths After School Club',
+            Location: 'Middlesex Universiy, Hendon Campus, Room 101',
+            Price: "£10",
+            photo: {
+            image: 'images/maths.jpg',
+            alt: 'Subject image'
+          }
+          },
+      
+          cart: [],
+          buttonText: "Add to Cart"
+        }
+      },
+      computed: {
+        cartTotal() {
+          return this.cart.length;
+        },
+      
+     canAddToCart(){
+      if (this.lessonProduct.availability > 0) {
+        return true;
+      } else {
+        return false;
+      }
+     }
 
+    },
 
-</html>
+     methods: {
+      addToCart() {
+      this.buttonText = "Added to Cart";
+      this.cart.push(this.lessonProduct.lessonid);
+      this.lessonProduct.availability--;
+      if (this.lessonProduct.availability <= 0) {
+        this.buttonText = "Sold Out";
+        this.canAddToCart = false;
+        }
+      
+      }
+     }
+    });
+    
+    myApp.mount('#mydiv');
+  </script>
