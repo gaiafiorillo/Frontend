@@ -1,7 +1,30 @@
-.lesson-card {
-    background-color: lightblue;
+
+body {
+    font:Helvetica, Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
     padding: 20px;
-    margin: 20px;
+    background-color: #fafafa;
+    color: #111;
+}
+
+h1 {
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.lesson-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.lesson-card h1 {
+    font-size: 1.4em;
+    margin-top: 0;
+    border-bottom: 1px solid #111;
+    padding-bottom: 8px;
 }
 
 figure {
@@ -13,5 +36,65 @@ figure img {
     width: 400px;
     max-width: 100%;
     height: auto;
-    margin: 0 auto;
+    margin: 15px auto 0;
+}
+
+button {
+    font-family: inherit;
+    padding: 8px 14px;
+    border: 1px solid #111;
+    background-color: #111;
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+    background-color: #fff;
+    color: #111;
+}
+
+button:disabled {
+    background-color: #eee;
+    border-color: #ccc;
+    color: #999;
+    cursor: not-allowed;
+}
+
+/* Checkout page */
+.checkout {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+}
+
+.checkout ul {
+    list-style: none;
+    padding: 0;
+}
+
+.checkout li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.checkout label {
+    display: block;
+}
+
+.checkout input {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 4px;
+    padding: 8px;
+    font-family: inherit;
+    border: 1px solid #aaa;
+}
+
+.checkout input:focus {
+    outline: none;
+    border-color: #111;
 }
