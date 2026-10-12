@@ -13,9 +13,7 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<div class="lesson-card"
-     v-for="lessonProduct in lessons"
-     :key="lessonProduct.lessonId">
+
 <body>
 
 <div id="lesson">
@@ -26,8 +24,10 @@
           Checkout ({{ cartItemCount }})
         </button>
 
-        <div v-for="lessonProduct in lessons"
+        <div class="lesson-card"
+             v-for="lessonProduct in lessons"
              :key="lessonProduct.lessonId">
+
 
             <h1>{{ lessonProduct.lessonTitle }}</h1>
             <p>Subject: {{ lessonProduct.subject }}</p>
@@ -59,10 +59,12 @@
         <ul>
         <template v-for="lessonProduct in lessons"
         :key="lessonProduct.lessonId">
-        <li v-if="cartProductCount(lessonProduct.lessonId) > 0">
-        {{ lessonProduct.lessonTitle }}
-        - Quantity: {{ cartProductCount(lessonProduct.lessonId) }}
-       </li>
+      
+       <li v-if="cartProductCount(lessonProduct.lessonId) > 0">
+    {{ lessonProduct.lessonTitle }}
+    - Quantity: {{ cartProductCount(lessonProduct.lessonId) }}
+    <button v-on:click="removeFromCart(lessonProduct)">Remove</button>
+</li>
         </template>
         </ul>
 
@@ -102,6 +104,17 @@ const myApp = createApp({
             lessonProduct.availability--;
 
         },
+
+      removeFromCart(lessonProduct) {
+      const index = this.cart.indexOf(lessonProduct.lessonId);
+      if (index === -1) {
+         return;
+       }
+       this.cart.splice(index, 1);
+       lessonProduct.availability++;
+
+        },
+
 
         cartProductCount(lessonId) {
             let count = 0;
