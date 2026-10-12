@@ -1,6 +1,17 @@
-div {
+.lesson-card {
     background-color: lightblue;
     padding: 20px;
     margin: 20px;
-   
+}
+
+figure {
+    margin: 0;
+}
+
+figure img {
+    display: block;
+    width: 400px;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
 }
