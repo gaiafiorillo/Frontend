@@ -70,6 +70,13 @@
 
         <p v-if="cartItemCount === 0">
          Your cart is empty. </p>
+         <h2>Your details</h2>
+<p>
+    <label>Name: <input v-model="order.name"></label>
+</p>
+<p>
+    <label>Phone: <input type="tel" v-model="order.phone"></label>
+</p>
         <button v-on:click="toggleCheckOut()">
         Back to Products
         </button>
@@ -88,6 +95,18 @@ const myApp = createApp({
             showProduct: true
         };
     },
+    data() {
+    return {
+        lessons: lessonArray,
+        cart: [],
+        showProduct: true,
+        order: {
+            name: '',
+            phone: ''
+        },
+        orderConfirmed: false
+      };
+     },
 
     computed: {
         cartItemCount() {
