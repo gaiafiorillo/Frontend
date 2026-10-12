@@ -1,5 +1,5 @@
 let lessonArray = [
-{ lessonid: 1,
+{ lessonId: 1,
             availability: 20,
             Subject: 'Maths After School Club',
             Location: 'Middlesex Universiy, Hendon Campus, Room 101',
@@ -9,7 +9,7 @@ let lessonArray = [
             alt: 'Subject image'}
 },
 
-{lessonid: 2,
+{lessonId: 2,
             availability: 15,
             Subject: 'Science After School Club',
             Location: 'Middlesex Universiy, Hendon Campus, Room 102',
@@ -18,6 +18,7 @@ let lessonArray = [
             image: 'images/science.jpg',
             alt: 'Subject image'} 
 }
+
 
 
 
