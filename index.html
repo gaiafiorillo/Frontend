@@ -68,14 +68,22 @@
         </template>
         </ul>
 
-        <p v-if="cartItemCount === 0">
-         Your cart is empty. </p>
+<p v-if="cartItemCount === 0 && !orderConfirmed">
+    Your cart is empty.
+</p>
          <h2>Your details</h2>
 <p>
     <label>Name: <input v-model="order.name"></label>
 </p>
 <p>
     <label>Phone: <input type="tel" v-model="order.phone"></label>
+</p>
+<button v-on:click="placeOrder" :disabled="!canCheckout">
+    Checkout
+</button>
+
+<p v-if="orderConfirmed">
+    Order confirmed! Thanks {{ order.name }}, we'll contact you on {{ order.phone }}.
 </p>
         <button v-on:click="toggleCheckOut()">
         Back to Products
@@ -89,13 +97,6 @@ const { createApp } = Vue;
 const myApp = createApp({
 
     data() {
-        return {
-            lessons: lessonArray,
-            cart: [],
-            showProduct: true
-        };
-    },
-    data() {
     return {
         lessons: lessonArray,
         cart: [],
@@ -108,11 +109,17 @@ const myApp = createApp({
       };
      },
 
-    computed: {
-        cartItemCount() {
-            return this.cart.length;
-        }
+   computed: {
+    cartItemCount() {
+        return this.cart.length;
     },
+    canCheckout() {
+        return this.order.name.trim() !== ''
+            && this.order.phone.trim() !== ''
+            && this.cart.length > 0;
+    }
+},
+    
 
     methods: {
         addToCart(lessonProduct) {
@@ -121,6 +128,7 @@ const myApp = createApp({
             }
             this.cart.push(lessonProduct.lessonId);
             lessonProduct.availability--;
+            this.orderConfirmed = false;
 
         },
 
@@ -165,7 +173,15 @@ const myApp = createApp({
 
             this.showProduct = !this.showProduct;
 
-        }
+        },placeOrder() {
+    if (!this.canCheckout) {
+        return;
+    }
+    this.orderConfirmed = true;
+    this.cart = [];
+}
+
+
 
     }
 
