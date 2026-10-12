@@ -22,5 +22,18 @@ let lessonArray = [
             image: 'images/science.jpg',
             alt: 'Science lesson'
         }
+    },
+
+        {
+        lessonId: 3,
+        lessonTitle: 'English After School Club',
+        subject: 'English',
+        location: 'Middlesex University, Hendon Campus, Room 103',
+        price: 8,
+        availability: 5,
+        photo: {
+            image: 'images/english.jpg',
+            alt: 'English lesson'
+        }
     }
 ];

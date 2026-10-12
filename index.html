@@ -22,8 +22,7 @@
 <h1>After School Club</h1>
 
     <div v-if="showProduct">
-        <button v-on:click="toggleCheckOut()">
-          <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+<button v-on:click="toggleCheckOut()" :disabled="cartItemCount === 0">          <i class="fa fa-shopping-cart" aria-hidden="true"></i>
           Checkout ({{ cartItemCount }})
         </button>
 
