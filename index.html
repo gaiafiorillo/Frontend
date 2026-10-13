@@ -33,7 +33,7 @@
             <p>Subject: {{ lessonProduct.subject }}</p>
             <p>Location: {{ lessonProduct.location }}</p>
             <p>Available spots: {{ lessonProduct.availability }}</p>
-            <p>Price: {{ lessonProduct.price }}</p>
+            <p>Price: £{{ lessonProduct.price }}</p>
             <button
               v-on:click="addToCart(lessonProduct)"
              :disabled="!canAddToCart(lessonProduct)">
