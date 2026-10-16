@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="styles.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="lesson.js"></script>
+
 
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -98,7 +98,7 @@ const myApp = createApp({
 
     data() {
     return {
-        lessons: lessonArray,
+        lessons: [],
         cart: [],
         showProduct: true,
         order: {
@@ -119,9 +119,15 @@ const myApp = createApp({
             && this.cart.length > 0;
     }
 },
-    
-
-    methods: {
+  created(){
+this.fetchData();
+},
+methods:{
+async fetchData(){
+const url = "http://localhost:3000/";
+let response = await (fetch (url));
+this.lessons = await response.json();
+},
         addToCart(lessonProduct) {
             if (!this.canAddToCart(lessonProduct)) {
                 return;
