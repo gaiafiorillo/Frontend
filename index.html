@@ -18,13 +18,13 @@
 
 <div id="lesson">
 <h1>After School Club</h1>
+  <button v-on:click="toggleCheckOut()" :disabled="cartItemCount === 0 && showProduct">
+    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+    {{ showProduct ? 'Checkout' : 'Back to Lessons' }} ({{ cartItemCount }})
+</button>
 
-    <div v-if="showProduct">
-<button v-on:click="toggleCheckOut()" :disabled="cartItemCount === 0">          <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-          Checkout ({{ cartItemCount }})
-        </button>
-
-        <div class="lesson-card"
+<div v-if="showProduct">
+    <div class="lesson-card" 
              v-for="lessonProduct in lessons"
              :key="lessonProduct.lessonId">
 
@@ -85,9 +85,6 @@
 <p v-if="orderConfirmed">
     Order confirmed! Thanks {{ order.name }}, we'll contact you on {{ order.phone }}.
 </p>
-        <button v-on:click="toggleCheckOut()">
-        Back to Products
-        </button>
     </div>
 </div>
 
