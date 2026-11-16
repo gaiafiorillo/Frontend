@@ -125,6 +125,23 @@ const url = "http://localhost:3000/lessons";
 let response = await (fetch (url));
 this.lessons = await response.json();
 },
+async saveOrder(){
+let orderBody = {
+name: this.order.name,
+phone: this.order.phone,
+lessonIDs: this.cart,
+spaces: this.cart.length
+};
+const url = "http://localhost:3000/orders";
+const options = {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json'
+},
+body: JSON.stringify(orderBody)
+};
+let response = await (fetch (url, options));
+},
         addToCart(lessonProduct) {
             if (!this.canAddToCart(lessonProduct)) {
                 return;
@@ -180,6 +197,7 @@ this.lessons = await response.json();
     if (!this.canCheckout) {
         return;
     }
+    this.saveOrder();
     this.orderConfirmed = true;
     this.cart = [];
 }
