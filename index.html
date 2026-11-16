@@ -121,7 +121,7 @@ this.fetchData();
 },
 methods:{
 async fetchData(){
-const url = "http://localhost:3000/";
+const url = "http://localhost:3000/lessons";
 let response = await (fetch (url));
 this.lessons = await response.json();
 },
