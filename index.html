@@ -142,6 +142,20 @@ body: JSON.stringify(orderBody)
 };
 let response = await (fetch (url, options));
 },
+async updateLesson(lesson){
+let updateBody = {
+availability: lesson.availability
+};
+const url = "http://localhost:3000/lessons/" + lesson._id;
+const options = {
+method: 'PUT',
+headers: {
+'Content-Type': 'application/json'
+},
+body: JSON.stringify(updateBody)
+};
+let response = await (fetch (url, options));
+},
         addToCart(lessonProduct) {
             if (!this.canAddToCart(lessonProduct)) {
                 return;
@@ -198,6 +212,11 @@ let response = await (fetch (url, options));
         return;
     }
     this.saveOrder();
+    for (let i = 0; i < this.lessons.length; i++) {
+        if (this.cartProductCount(this.lessons[i].lessonId) > 0) {
+            this.updateLesson(this.lessons[i]);
+        }
+    }
     this.orderConfirmed = true;
     this.cart = [];
 }
