@@ -121,7 +121,7 @@ this.fetchData();
 },
 methods:{
 async fetchData(){
-const url = "http://localhost:3000/lessons";
+const url = "https://m01008665-after-school.onrender.com/lessons";
 let response = await (fetch (url));
 this.lessons = await response.json();
 },
@@ -132,7 +132,7 @@ phone: this.order.phone,
 lessonIDs: this.cart,
 spaces: this.cart.length
 };
-const url = "http://localhost:3000/orders";
+const url = "https://m01008665-after-school.onrender.com/orders";
 const options = {
 method: 'POST',
 headers: {
@@ -146,7 +146,7 @@ async updateLesson(lesson){
 let updateBody = {
 availability: lesson.availability
 };
-const url = "http://localhost:3000/lessons/" + lesson._id;
+const url = "https://m01008665-after-school.onrender.com/lessons/" + lesson._id;
 const options = {
 method: 'PUT',
 headers: {
