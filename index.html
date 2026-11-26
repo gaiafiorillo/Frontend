@@ -70,6 +70,7 @@
             <p>Location: {{ lessonProduct.location }}</p>
             <p>Available spots: {{ lessonProduct.availability }}</p>
             <p>Price: £{{ lessonProduct.price }}</p>
+            <p>Teacher: {{ teacherName(lessonProduct.lessonId) }}</p>
             <button
               v-on:click="addToCart(lessonProduct)"
              :disabled="!canAddToCart(lessonProduct)">
@@ -286,6 +287,16 @@ let response = await (fetch (url, options));
 
         },
         
+        teacherName(lessonId) {
+            let names = [];
+            for (let i = 0; i < this.teachers.length; i++) {
+                if (this.teachers[i].lessonIds.includes(lessonId)) {
+                    names.push(this.teachers[i].firstName + ' ' + this.teachers[i].lastName);
+                }
+            }
+            return names.join(', ');
+        },
+
         buttonText(lessonProduct) {
 
             return this.canAddToCart(lessonProduct)
