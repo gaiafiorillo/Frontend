@@ -45,6 +45,21 @@
             </select>
         </label>
     </p>
+    <p>
+        <label>Teacher:
+            <select v-model="selectedTeacher" v-on:change="fetchTeacherLessons">
+                <option value="">Choose a teacher</option>
+                <option v-for="teacher in teachers" :key="teacher._id" :value="teacher._id">
+                    {{ teacher.firstName }} {{ teacher.lastName }}
+                </option>
+            </select>
+        </label>
+    </p>
+    <ul>
+        <li v-for="lesson in teacherLessons" :key="lesson._id">
+            {{ lesson.lessonTitle }} - {{ lesson.location }} - £{{ lesson.price }}
+        </li>
+    </ul>
     <div class="lesson-card" 
              v-for="lessonProduct in sortedLessons"
              :key="lessonProduct.lessonId">
@@ -127,7 +142,10 @@ const myApp = createApp({
         sortAttribute: 'subject',
         sortOrder: 'asc',
         searchText: '',
-        searchIds: null
+        searchIds: null,
+        teachers: [],
+        selectedTeacher: '',
+        teacherLessons: []
       };
      },
 
@@ -168,6 +186,7 @@ const myApp = createApp({
 },
   created(){
 this.fetchData();
+this.fetchTeachers();
 },
 methods:{
 async fetchData(){
@@ -182,6 +201,20 @@ let results = await response.json();
 this.searchIds = results.map(function(lesson) {
 return lesson.lessonId;
 });
+},
+async fetchTeachers(){
+const url = "https://m01008665-after-school.onrender.com/teachers";
+let response = await (fetch (url));
+this.teachers = await response.json();
+},
+async fetchTeacherLessons(){
+if (this.selectedTeacher === '') {
+this.teacherLessons = [];
+return;
+}
+const url = "https://m01008665-after-school.onrender.com/teachers/" + this.selectedTeacher + "/lessons";
+let response = await (fetch (url));
+this.teacherLessons = await response.json();
 },
 async saveOrder(){
 let orderBody = {
