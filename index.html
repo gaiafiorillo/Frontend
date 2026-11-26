@@ -113,6 +113,8 @@ const myApp = createApp({
     canCheckout() {
         return this.order.name.trim() !== ''
             && this.order.phone.trim() !== ''
+            && /^[A-Za-z ]+$/.test(this.order.name)
+            && /^[0-9]+$/.test(this.order.phone)
             && this.cart.length > 0;
     }
 },
