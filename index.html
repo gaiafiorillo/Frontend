@@ -24,8 +24,24 @@
 </button>
 
 <div v-if="showProduct">
+    <p>
+        <label>Sort by:
+            <select v-model="sortAttribute">
+                <option value="subject">Subject</option>
+                <option value="location">Location</option>
+                <option value="price">Price</option>
+                <option value="availability">Spaces</option>
+            </select>
+        </label>
+        <label>Order:
+            <select v-model="sortOrder">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+            </select>
+        </label>
+    </p>
     <div class="lesson-card" 
-             v-for="lessonProduct in lessons"
+             v-for="lessonProduct in sortedLessons"
              :key="lessonProduct.lessonId">
 
 
@@ -102,7 +118,9 @@ const myApp = createApp({
             name: '',
             phone: ''
         },
-        orderConfirmed: false
+        orderConfirmed: false,
+        sortAttribute: 'subject',
+        sortOrder: 'asc'
       };
      },
 
@@ -116,6 +134,20 @@ const myApp = createApp({
             && /^[A-Za-z ]+$/.test(this.order.name)
             && /^[0-9]+$/.test(this.order.phone)
             && this.cart.length > 0;
+    },
+    sortedLessons() {
+        let lessonsCopy = this.lessons.slice();
+        let attribute = this.sortAttribute;
+        let order = this.sortOrder;
+        return lessonsCopy.sort(function(a, b) {
+            if (a[attribute] > b[attribute]) {
+                return order === 'asc' ? 1 : -1;
+            }
+            if (a[attribute] < b[attribute]) {
+                return order === 'asc' ? -1 : 1;
+            }
+            return 0;
+        });
     }
 },
   created(){
