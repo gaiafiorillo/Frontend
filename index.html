@@ -25,6 +25,11 @@
 
 <div v-if="showProduct">
     <p>
+        <label>Search:
+            <input v-model="searchText" v-on:input="searchLessons">
+        </label>
+    </p>
+    <p>
         <label>Sort by:
             <select v-model="sortAttribute">
                 <option value="subject">Subject</option>
@@ -120,7 +125,9 @@ const myApp = createApp({
         },
         orderConfirmed: false,
         sortAttribute: 'subject',
-        sortOrder: 'asc'
+        sortOrder: 'asc',
+        searchText: '',
+        searchIds: null
       };
      },
 
@@ -135,8 +142,17 @@ const myApp = createApp({
             && /^[0-9]+$/.test(this.order.phone)
             && this.cart.length > 0;
     },
+    searchedLessons() {
+        if (this.searchIds === null) {
+            return this.lessons;
+        }
+        let ids = this.searchIds;
+        return this.lessons.filter(function(lesson) {
+            return ids.includes(lesson.lessonId);
+        });
+    },
     sortedLessons() {
-        let lessonsCopy = this.lessons.slice();
+        let lessonsCopy = this.searchedLessons.slice();
         let attribute = this.sortAttribute;
         let order = this.sortOrder;
         return lessonsCopy.sort(function(a, b) {
@@ -158,6 +174,14 @@ async fetchData(){
 const url = "https://m01008665-after-school.onrender.com/lessons";
 let response = await (fetch (url));
 this.lessons = await response.json();
+},
+async searchLessons(){
+const url = "https://m01008665-after-school.onrender.com/search?q=" + encodeURIComponent(this.searchText);
+let response = await (fetch (url));
+let results = await response.json();
+this.searchIds = results.map(function(lesson) {
+return lesson.lessonId;
+});
 },
 async saveOrder(){
 let orderBody = {
